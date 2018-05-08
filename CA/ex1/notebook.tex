@@ -1,0 +1,779 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{CA\_Assignment1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Cognitive Algorithms - Assignment 1 (30
+points)}\label{cognitive-algorithms---assignment-1-30-points}
+
+Cognitive Algorithms\\
+Summer semester 2018\\
+Technische Universität Berlin\\
+Fachgebiet Maschinelles Lernen
+
+\textbf{Due on May 9, 2018 10 am via ISIS }
+
+After completing all tasks, run the whole notebook so that the content
+of each cell is properly displayed. Make sure that the code was ran and
+the entire output (e.g. figures) is printed. Print the notebook as a PDF
+file and again make sure that all lines are readable - use line breaks
+in the Python Code '' if necessary. Points will be deducted, if code or
+content is not readable!
+
+\textbf{Upload the PDF file that contains a copy of your notebook on
+ISIS.}
+
+    Group:\\
+\textbf{Active} Members:
+
+    \subsection{\# Part 0 (0 points)}\label{part-0-0-points}
+
+Please find the journal on ISIS
+https://isis.tu-berlin.de/mod/journal/view.php?id=554711 Each group
+member should fill it out individually. It asks you to give some
+personal information like your name, course of study and aspired degree,
+that we need for statistical reasons. We will not share, misuse or abuse
+your information. If you do not feel comfortable with sharing this
+information, please write an email to
+hannah.marienwald@campus.tu-berlin.de. Please note, that it does not
+replace the registration for the exam at QISPOS or the Pruefungsamt.\\
+Group members who did not fill out the journal or wrote an email (see
+above), will be assumed as inactive and deleted from the group.
+
+    \subsection{\# Part 1: Math Recap (10
+points)}\label{part-1-math-recap-10-points}
+
+The first part of this assignment is a linear algebra recap. Task 1
+consists of multiple choice questions. For Task 2 you only need to write
+down the results.
+
+    \subsubsection{Task 1 (8 points)}\label{task-1-8-points}
+
+Please answer questions A) to H) and check the correct answer (using an
+'x'). Here is an example:\\
+This is a question?\\
+- {[} {]} wrong answer\\
+- {[} {]} wrong answer\\
+- {[}x{]} correct answer\\
+- {[} {]} wrong answer
+
+    \textbf{A)} What is the scalar product of the following vectors
+\(\left( \begin{array}{r} 1 \\ -2 \\ 0 \end{array} \right) , \left( \begin{array}{r} 3 \\ 0 \\ 3 \end{array} \right)\)?\\
+- {[}x{]} 3\\
+- {[} {]} 5\\
+- {[} {]} 7
+
+    \textbf{B)} Let \(\mathbf{v}, \mathbf{w} \in \mathbb{R}^n\) be two
+column vectors. Which of the following statements is always true?\\
+- {[}x{]}
+\(\mathbf{v}^T \cdot \mathbf{w} = \mathbf{w}^T \cdot \mathbf{v}\)\\
+- {[} {]}
+\(\mathbf{v} \cdot \mathbf{w}^T = \mathbf{w} \cdot \mathbf{v}^T\)
+
+    \textbf{C)} The mapping
+\(f: \mathbb{R}^2 \ni (x, y)^\top \mapsto (x + y, y- x)^\top \in \mathbb{R}^2\)
+is given by the following matrix:\\
+- {[} {]}
+\(\left( \begin{array}{rr} 1 & 1 \\ 1& -1 \end{array} \right)\)\\
+- {[} {]}
+\(\left( \begin{array}{rr} 0 & 2 \\ -2& 0 \end{array} \right)\)\\
+- {[}x{]}
+\(\left( \begin{array}{rr} 1 & 1 \\ -1& 1 \end{array} \right)\)
+
+    \textbf{D)} Which property does matrix multiplication \textbf{not}
+have?\\
+- {[} {]} Associativity: \((AB)C = A(BC)\)\\
+- {[}x{]} Commutativity: \(AB = BA\)\\
+- {[} {]} Distributivity: \((A+B)C = AC + BC\)
+
+    \textbf{E)} Let \(A \in \mathbb{R}^{n \times n}\) be an invertible
+matrix and \(\mathbf{v},\mathbf{w} \in \mathbb{R}^n\) two column vectors
+with \(A \cdot \mathbf{v} = \mathbf{w}\). Which of the following
+statements is always true?\\
+- {[} {]} \(A = \mathbf{w} \cdot \mathbf{v}^{-1}\)\\
+- {[} {]} \(\mathbf{v} = \mathbf{w} \cdot A^{-1}\)\\
+- {[}x{]} \(\mathbf{v} = A^{-1} \cdot \mathbf{w}\)
+
+    \textbf{F)} The rank of the matrix
+\(\left( \begin{array}{rrr} 4 & 4 & 4 \\ 4 & 4 & 4 \\ 4 & 4 & 4 \end{array} \right)\)
+is\\
+- {[}x{]} 1\\
+- {[} {]} 3\\
+- {[} {]} 4
+
+    \textbf{G)} For a square \(n \times n\) matrix \(A\) holds\\
+- {[} {]} \(rank(A) = n \; \Rightarrow \; A\) is invertible, but there
+are invertible \(A\) with \(rank(A) \neq n\)\\
+- {[} {]} \(A\) is invertible \(\; \Rightarrow \; rank(A) = n\), but
+there are \(A\) with \(rank(A) = n\), which are not invertible.\\
+- {[} {]} \(rank(A) = n \; \iff \; A\) is invertible
+
+    \textbf{H)} Which of the following matrices is orthogonal:\\
+- {[} {]}
+\(\left( \begin{array}{rr} 0 & 1 \\ -1 & 0 \end{array} \right)\)\\
+- {[} {]}
+\(\left( \begin{array}{rr} 1 & -1 \\ -1 & 1 \end{array} \right)\)\\
+- {[} {]}
+\(\left( \begin{array}{rr} 1 & 1 \\ 1 & 0 \end{array} \right)\)
+
+    \subsubsection{Task 2 (2 points)}\label{task-2-2-points}
+
+Please replace '?' with the correct solution.\\
+We consider two functions \(f\) and \(g\) which transform an input
+vector \(\mathbf{x} = (x_1, \dots , x_d)^T \in \mathbb{R}^d\) into
+scalars: \(f(\mathbf{x}) = \mathbf{u}^T\mathbf{x}\),
+\(\mathbf{u} = (u_1, \dots, u_d)^T \in \mathbb{R}^d\) and
+\(g(\mathbf{x}) = \mathbf{x}^T\mathbf{x}\).\\
+Compute the gradient for \(f\) and \(g\).
+
+    \begin{itemize}
+\tightlist
+\item
+  \(\nabla f(\mathbf{x}) = (\frac{\partial f(\mathbf{x})}{\partial x_1}, \dots, \frac{\partial f(\mathbf{x})}{\partial x_d})^T =u\)\\
+\item
+  \(\nabla g(\mathbf{x}) = (\frac{\partial g(\mathbf{x})}{\partial x_1}, \dots, \frac{\partial g(\mathbf{x})}{\partial x_d})^T =2x\)
+\end{itemize}
+
+    \subsection{\# Part 2: Multiple Choice Questions (4
+points)}\label{part-2-multiple-choice-questions-4-points}
+
+In the lecture, you learned about the perceptron and the prototype
+classifier, which is also called the nearest centroid classifer (NCC).\\
+Please answer questions A) to D) and check the correct answer (using an
+'x').
+
+    \textbf{A)} The training data for a classification task is given by
+\((\mathbf{x_1}, y_1),\ldots, ( \mathbf{x_n}, y_n ) \in \mathbb{R}^d \times \mathcal{C}\),
+where \(\mathcal{C}\) is the set of classes and ...:\\
+- {[} {]} ... can be of infinite size\\
+- {[} {]} ... is always defined as \(\mathcal{C} = \{-1,+1\}\)\\
+- {[} {]} ... neither of the above
+
+    \textbf{B)} Let \(\mathbf{w}\) be the weight vector. The decision
+boundary is ...\\
+- {[}x{]} orthogonal to \(\mathbf{w}\)\\
+- {[} {]} in the same direction as \(\mathbf{w}\)
+
+    \textbf{C)} Let \(\mathbf{w}\) the weight vector. Which statement is
+true?\\
+- {[} {]} \(\mathbf{w}\) and \(\mathbf{-w}\) yield the exact same
+classification\\
+- {[}x{]} \(\mathbf{w}\) and \(\mathbf{-w}\) do not yield the exact same
+classification
+
+    \textbf{D)} Let \(\mathbf{w} = (1,1)^T\) and \(b = 0\). Let
+\(\mathbf{x}_1, \ldots \mathbf{x_n} \in \mathbb{R}^2\) be the training
+data. Let \(i = \{1, \ldots ,n \}\) and \(j \in \{1, 2\}\). Which
+statement is true?\\
+- {[}x{]} all data points in the first quadrant (\(x_{i,j} > 0\)) are
+classified as \(+1\)\\
+- {[} {]} all data points in the second quadrant (\(x_{i,1} < 0\) and
+\(x_{i,2} > 0\)) are classified as \(+1\)\\
+- {[} {]} all data points in the third quadrant (\(x_{i,j} < 0\)) are
+classified as \(+1\)\\
+- {[} {]} all data points in the fourth quadrant (\(x_{i,1} > 0\) and
+\(x_{i,2} < 0\)) are classified as \(+1\)
+
+    \subsection{\# Part 3: Programming (16
+points)}\label{part-3-programming-16-points}
+
+The linear perceptron and the NCC are linear classification methods.
+Given training data
+\[(\mathbf{x_1}, y_1),\ldots, ( \mathbf{x_n}, y_n ) \in \mathbb{R}^d \times \{-1,1\}\]
+their goal is to learn a weight vector \(\mathbf{w}\) and a bias term
+\(b\), such that each new data point \(\mathbf{x} \in \mathbb{R}^d\)
+will be assigned the correct class label via the following function:
+\[\mathbf x \mapsto  \mbox{sign}(\mathbf w^T \cdot \mathbf x - b)\]
+
+The two methods use different strategies to achieve this goal. You will
+programm and compare the perceptron and the prototype classifier and use
+them to predict handwritten digits. The task is to classify one digit
+against all others.\\
+If not done yet, download the data set \texttt{usps.mat} from the ISIS
+web site. The data set \texttt{usps.mat} contains handwritten digits
+from the U.S. Postal Service data set. The data set contains 2007 images
+and each image consits of 256 pixels.\\
+Below you can find some useful functions for loading the data and
+plotting images.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{scipy} \PY{k+kn}{as} \PY{n+nn}{sp}
+        \PY{k+kn}{import} \PY{n+nn}{scipy.io} \PY{k+kn}{as} \PY{n+nn}{io}
+        \PY{k+kn}{import} \PY{n+nn}{pylab} \PY{k+kn}{as} \PY{n+nn}{pl}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} Functions for loading and plotting the images \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} \PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{k}{def} \PY{n+nf}{load\PYZus{}usps\PYZus{}data}\PY{p}{(}\PY{n}{fname}\PY{p}{,} \PY{n}{digit}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Loads USPS (United State Postal Service) data from \PYZlt{}fname\PYZgt{} }
+        \PY{l+s+sd}{    Definition:  X, Y = load\PYZus{}usps\PYZus{}data(fname, digit = 3)}
+        \PY{l+s+sd}{    Input:       fname   \PYZhy{} string}
+        \PY{l+s+sd}{                 digit   \PYZhy{} optional, integer between 0 and 9, default is 3}
+        \PY{l+s+sd}{    Output:      X       \PYZhy{}  DxN array with N images with D pixels}
+        \PY{l+s+sd}{                 Y       \PYZhy{}  1D array of length N of class labels}
+        \PY{l+s+sd}{                                 1 \PYZhy{} where picture contains the \PYZlt{}digit\PYZgt{}}
+        \PY{l+s+sd}{                                \PYZhy{}1 \PYZhy{} otherwise                           }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{c+c1}{\PYZsh{} load the data}
+            \PY{n}{data} \PY{o}{=} \PY{n}{io}\PY{o}{.}\PY{n}{loadmat}\PY{p}{(}\PY{n}{fname}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} extract images and labels}
+            \PY{n}{X} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}patterns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{Y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}labels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{Y} \PY{o}{=} \PY{n}{Y}\PY{p}{[}\PY{n}{digit}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+            \PY{k}{return} \PY{n}{X}\PY{p}{,} \PY{n}{Y}
+        
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}img}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Plots one image }
+        \PY{l+s+sd}{    Definition: plot\PYZus{}img(a) }
+        \PY{l+s+sd}{    Input:      a \PYZhy{} 1D array that contains an image }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}   
+            \PY{n}{a2} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{a}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pl}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{a2}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+            \PY{n}{pl}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+            \PY{n}{pl}\PY{o}{.}\PY{n}{setp}\PY{p}{(}\PY{n}{pl}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{xticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{yticks}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{)}
+                    
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}imgs}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{)}\PY{p}{:}   
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Plots 3 images from each of the two classes }
+        \PY{l+s+sd}{    Definition:         plot\PYZus{}imgs(X,Y)}
+        \PY{l+s+sd}{    Input:       X       \PYZhy{}  DxN array of N pictures with D pixel}
+        \PY{l+s+sd}{                 Y       \PYZhy{}  1D array of length N of class labels \PYZob{}1, \PYZhy{}1\PYZcb{}                  }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{pl}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{sp}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                \PY{n}{classpos} \PY{o}{=} \PY{p}{(}\PY{n}{Y} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{m} \PY{o}{=} \PY{n}{classpos}\PY{p}{[}\PY{n}{sp}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random\PYZus{}integers}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{classpos}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+                \PY{n}{pl}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{o}{+}\PY{n}{i}\PY{p}{)}
+                \PY{n}{plot\PYZus{}img}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{m}\PY{p}{]}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{sp}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                \PY{n}{classneg} \PY{o}{=} \PY{p}{(}\PY{n}{Y} \PY{o}{!=} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{m} \PY{o}{=} \PY{n}{classneg}\PY{p}{[}\PY{n}{sp}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{random\PYZus{}integers}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{classneg}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+                \PY{n}{pl}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{o}{+}\PY{n}{i}\PY{p}{)}
+                \PY{n}{plot\PYZus{}img}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{m}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{A) (6 points)} Implement a linear perceptron by completing the
+function stub \texttt{train\_perceptron}. We will test three different
+types of update rules for the learning rate (\texttt{option}
+\(\in \{0,1,2\}\)).
+\[\text{learning rate}(t) = \begin{cases} \frac{\eta}{1+t} & \text{if} \;\; \text{option} = 0  \\ \eta & \text{if} \;\; \text{option} = 1 \\ \eta \cdot (1+t) & \text{if} \;\; \text{option} = 3 \end{cases}\]
+where \(t\) is the current iteration and \(\eta\) the initial value of
+the learning rate.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k}{def} \PY{n+nf}{train\PYZus{}perceptron}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,}\PY{n}{iterations}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,}\PY{n}{eta}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{option}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Trains a linear perceptron}
+        \PY{l+s+sd}{    Definition:  w, b, acc  = train\PYZus{}perceptron(X,Y,iterations=200,eta=.1)}
+        \PY{l+s+sd}{    Input:       X       \PYZhy{}  DxN array of N data points with D features}
+        \PY{l+s+sd}{                 Y       \PYZhy{}  1D array of length N of class labels \PYZob{}\PYZhy{}1, 1\PYZcb{}}
+        \PY{l+s+sd}{                 iter    \PYZhy{}  optional, number of iterations, default 200}
+        \PY{l+s+sd}{                 eta     \PYZhy{}  optional, learning rate, default 0.1}
+        \PY{l+s+sd}{                 option  \PYZhy{}  optional, defines how eta is updated in each iteration}
+        \PY{l+s+sd}{    Output:      w       \PYZhy{}  1D array of length D, weight vector }
+        \PY{l+s+sd}{                 b       \PYZhy{}  bias term for linear classification                          }
+        \PY{l+s+sd}{                 acc     \PYZhy{}  1D array of length iter, contains classification accuracies }
+        \PY{l+s+sd}{                            after each iteration  }
+        \PY{l+s+sd}{                            Accuracy = \PYZsh{}correctly classified points / N }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{k}{assert} \PY{n}{option} \PY{o}{==} \PY{l+m+mi}{0} \PY{o+ow}{or} \PY{n}{option} \PY{o}{==} \PY{l+m+mi}{1} \PY{o+ow}{or} \PY{n}{option} \PY{o}{==} \PY{l+m+mi}{2}
+            \PY{n}{acc} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{iterations}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}include the bias term by adding a row of ones to X }
+            \PY{n}{X} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}initialize weight vector}
+            \PY{n}{weights} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            
+            \PY{k}{for} \PY{n}{it} \PY{o+ow}{in} \PY{n}{sp}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{iterations}\PY{p}{)}\PY{p}{:}
+                
+                \PY{c+c1}{\PYZsh{} indices of misclassified data}
+                \PY{n}{wrong} \PY{o}{=} \PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{weights}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)} \PY{o}{!=} \PY{n}{Y}\PY{p}{)}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{c+c1}{\PYZsh{} compute accuracy acc[it] (1 point)       }
+                \PY{n}{acc}\PY{p}{[}\PY{n}{it}\PY{p}{]}  \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{wrong}\PY{p}{)} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                \PY{k}{if} \PY{n}{wrong}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                    
+                    \PY{c+c1}{\PYZsh{} pick a random misclassified data point (2 points)            }
+                    \PY{n}{rnd} \PY{o}{=} \PY{n}{wrong}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{wrong}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+                    
+                    \PY{c+c1}{\PYZsh{}update weight vector (using different learning rates ) (each 1 point)}
+                    \PY{k}{if} \PY{n}{option} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                        \PY{n}{rate} \PY{o}{=} \PY{n}{eta} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{it}\PY{p}{)}
+                    \PY{k}{elif} \PY{n}{option} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                        \PY{n}{rate} \PY{o}{=} \PY{n}{eta}
+                    \PY{k}{elif} \PY{n}{option} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                        \PY{n}{rate} \PY{o}{=} \PY{n}{eta} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{it}\PY{p}{)}
+                        
+                    \PY{n}{weights} \PY{o}{=} \PY{n}{weights} \PY{o}{+} \PY{n}{rate} \PY{o}{*} \PY{n}{Y}\PY{p}{[}\PY{n}{rnd}\PY{p}{]} \PY{o}{*} \PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{n}{rnd}\PY{p}{]}
+                    
+            \PY{n}{b} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{weights}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} 
+            \PY{n}{w} \PY{o}{=} \PY{n}{weights}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+            \PY{c+c1}{\PYZsh{}return weight vector, bias and accuracies}
+            \PY{k}{return} \PY{n}{w}\PY{p}{,}\PY{n}{b}\PY{p}{,}\PY{n}{acc}
+        
+        
+        \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} \PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{k}{def} \PY{n+nf}{analyse\PYZus{}accuracies\PYZus{}perceptron}\PY{p}{(}\PY{n}{digit} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{option}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Loads usps.mat data and plots digit recognition accuracy in the linear perceptron}
+        \PY{l+s+sd}{    Definition: analyse\PYZus{}perceptron(digit = 3)}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{load\PYZus{}usps\PYZus{}data}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{usps.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{digit}\PY{p}{)}
+            \PY{n}{w\PYZus{}per}\PY{p}{,}\PY{n}{b\PYZus{}per}\PY{p}{,}\PY{n}{acc} \PY{o}{=} \PY{n}{train\PYZus{}perceptron}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{,} \PY{n}{option}\PY{o}{=}\PY{n}{option}\PY{p}{,} \PY{n}{iterations}\PY{o}{=}\PY{l+m+mi}{400}\PY{p}{)}
+            
+            \PY{n}{pl}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+            \PY{n}{pl}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{acc}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{acc}\PY{p}{)}
+            \PY{n}{pl}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Digit recognition accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}      
+            \PY{n}{pl}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iterations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{pl}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{load\PYZus{}usps\PYZus{}data}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{usps.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{weights} \PY{o}{=} \PY{n}{sp}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{wrong} \PY{o}{=} \PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{weights}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)} \PY{o}{!=} \PY{n}{Y}\PY{p}{)}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{wrong}\PY{p}{)}\PY{p}{)}
+        \PY{n}{m} \PY{o}{=} \PY{n}{wrong}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}my acc}
+        \PY{n}{acc} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{wrong}\PY{p}{)} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        
+        \PY{c+c1}{\PYZsh{} control acc}
+        \PY{n}{acc\PYZus{}c} \PY{o}{=} \PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{m}\PY{p}{)} \PY{o}{/} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{m} \PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,}  \PY{n}{sp}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} (3, 1)
+\end{Verbatim}
+            
+    \textbf{B) (3 points)} Call the function
+\texttt{analyse\_accuracies\_perceptron} for a digit of your choice and
+all three possible \texttt{options}. It plots the classification
+accuracy, i.e. the percentage of correctly classified data points, as a
+function of iterations. Does the accuracy converge (asymptotically)?
+What difference do you notice for the different update rules of the
+learning rate? Why? Which \texttt{option} would you prefer? Why?
+
+    \textbf{{[}answer for B{]}:} Only for option 0 the algorithm converges
+to a solution, while the other two tend to jump between a somewhat fixed
+optimum and several different non-stationary points. that's why option 0
+appears to be the best choice, since for large number of iterations, it
+is most likely to stay at the optimal solution. It stays there, because
+the learning rate also decreases which is not the case with option 1 and
+2.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{analyse\PYZus{}accuracies\PYZus{}perceptron}\PY{p}{(}\PY{n}{digit}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{option}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{analyse\PYZus{}accuracies\PYZus{}perceptron}\PY{p}{(}\PY{n}{digit}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{option}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{analyse\PYZus{}accuracies\PYZus{}perceptron}\PY{p}{(}\PY{n}{digit}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{option}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{C) (4 points)} Implement a Prototype/Nearest Centroid Classifier
+by completing the function stub \texttt{train\_ncc}. Note that points
+will be deducted for the use of loops.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}ncc}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Trains a prototype/nearest centroid classifier}
+        \PY{l+s+sd}{    Definition:  w, b   = train\PYZus{}ncc(X,Y)}
+        \PY{l+s+sd}{    Input:       X       \PYZhy{}  DxN array of N data points with D features}
+        \PY{l+s+sd}{                 Y       \PYZhy{}  1D array of length N of class labels \PYZob{}\PYZhy{}1, 1\PYZcb{}}
+        \PY{l+s+sd}{    Output:      w       \PYZhy{}  1D array of length D, weight vector  }
+        \PY{l+s+sd}{                 b       \PYZhy{}  bias term for linear classification                          }
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{c+c1}{\PYZsh{} ... your code here }
+            \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+            \PY{n}{A} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{p}{)}
+            \PY{n}{B} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{p}{)}
+            \PY{n}{w1} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{[}\PY{n}{A}\PY{p}{]}\PY{p}{)} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{A}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+            \PY{n}{w2} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{[}\PY{n}{B}\PY{p}{]}\PY{p}{)} \PY{o}{*}\PY{n+nb}{len}\PY{p}{(}\PY{n}{B}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+            \PY{n}{w} \PY{o}{=} \PY{n}{w1}\PY{o}{\PYZhy{}}\PY{n}{w2}
+            \PY{n}{b} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{*} \PY{n}{sp}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{w}\PY{p}{,} \PY{n}{w}\PY{p}{)} 
+            \PY{k}{return} \PY{n}{w}\PY{p}{,}\PY{n}{b}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}histogram}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{w}\PY{p}{,} \PY{n}{b}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Plots a histogram of classifier outputs (w\PYZca{}T X) for each class with pl.hist }
+         \PY{l+s+sd}{    The title of the histogram is the accuracy of the classification}
+         \PY{l+s+sd}{    Accuracy = \PYZsh{}correctly classified points / N }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    Definition:     plot\PYZus{}histogram(X, Y, w, b)}
+         \PY{l+s+sd}{    Input:          X       \PYZhy{}  DxN array of N data points with D features}
+         \PY{l+s+sd}{                    Y       \PYZhy{}  1D array of length N of class labels}
+         \PY{l+s+sd}{                    w       \PYZhy{}  1D array of length D, weight vector }
+         \PY{l+s+sd}{                    b       \PYZhy{}  bias term for linear classification   }
+         \PY{l+s+sd}{    }
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{c+c1}{\PYZsh{}Plot histogram (use pl.hist)                      +2 point (calc output, use hist)}
+             \PY{n}{pl}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{(}\PY{n}{w}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{Y}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{w}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{Y}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{pl}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{w\PYZca{}T X}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+             \PY{n}{pl}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{non\PYZhy{}target}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{target}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}Title contains the accuracy                       +1 point (label,legend,title)}
+             \PY{n}{pl}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Acc }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{sp}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{sp}\PY{o}{.}\PY{n}{sign}\PY{p}{(}\PY{n}{w}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{b}\PY{p}{)}\PY{o}{==}\PY{n}{Y}\PY{p}{)}\PY{o}{/}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}  
+             
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} \PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{k}{def} \PY{n+nf}{compare\PYZus{}classifiers}\PY{p}{(}\PY{n}{digit} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Loads usps.mat data, trains the perceptron and the Nearest centroid classifiers, }
+         \PY{l+s+sd}{    and plots their weight vector and classifier output}
+         \PY{l+s+sd}{    Definition: compare\PYZus{}classifiers(digit = 3)}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{X}\PY{p}{,}\PY{n}{Y} \PY{o}{=} \PY{n}{load\PYZus{}usps\PYZus{}data}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{usps.mat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{digit}\PY{p}{)}
+             \PY{n}{w\PYZus{}ncc}\PY{p}{,}\PY{n}{b\PYZus{}ncc} \PY{o}{=} \PY{n}{train\PYZus{}ncc}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+             \PY{n}{w\PYZus{}per}\PY{p}{,}\PY{n}{b\PYZus{}per}\PY{p}{,}\PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{train\PYZus{}perceptron}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{Y}\PY{p}{)}
+             
+             \PY{n}{pl}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{pl}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{plot\PYZus{}img}\PY{p}{(}\PY{n}{w\PYZus{}ncc}\PY{p}{)}
+             \PY{n}{pl}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NCC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{pl}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+             \PY{n}{plot\PYZus{}histogram}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{w\PYZus{}ncc}\PY{p}{,} \PY{n}{b\PYZus{}ncc}\PY{p}{)}
+             
+             \PY{n}{pl}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{n}{plot\PYZus{}img}\PY{p}{(}\PY{n}{w\PYZus{}per}\PY{p}{)}
+             \PY{n}{pl}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Perceptron}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{pl}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}
+             \PY{n}{plot\PYZus{}histogram}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{w\PYZus{}per}\PY{p}{,} \PY{n}{b\PYZus{}per}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{D) (3 points)} Call \texttt{compare\_classifiers} for a digit of
+your choice. It plots, for both the perceptron and the nearest centroid
+classifier, the histogram of classifier outputs and the weight vector.\\
+Call the function several times for different digits. Do you notice a
+performance difference for the different digits? Why could this be? Show
+the histograms of the digits with highest difference in accuracy. Which
+algorithm (Nearest Centroid Classifier or Perceptron) would you prefer
+for this task? Why?\\
+\emph{Hint: The function \texttt{plot\_histogram} calculates the
+classification accuracy and plots a histogram of classifier output
+\(\mathbf w^T \mathbf x\) for each class. To do so, \(X\) is sorted
+according to their labels and \(w^T x\) is computed for each class. The
+accuracy of the algorithm is printed as the title of the plot.}
+
+    \textbf{{[}Your answer for D{]}} The highest difference seems to be at
+number 9. The perceptron beats the NCC every time. It adapts better to
+the general case, since it will converge to the best possible (linear)
+solution, while the solution the NCC attains is rigid. It will even
+produce the same solution, if we rotate each datacloud around its
+respective average, since the center of mass will not change this way.
+The perceptron would be able to deal with that.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{compare\PYZus{}classifiers}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
